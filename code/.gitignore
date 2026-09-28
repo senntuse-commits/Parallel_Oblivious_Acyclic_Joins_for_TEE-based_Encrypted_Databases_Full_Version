@@ -1,0 +1,55 @@
+# Build products
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.exe
+
+# Python and editor caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.vscode/
+.idea/
+
+# Locally generated datasets and experiment output
+experiments/data/
+experiments/raw/
+experiments/results/
+experiments/figures/
+experiments/tmp/
+*.tar
+*.tar.gz
+
+# Logs and transient files
+*.log
+*.tmp
+NUL
+NUL.exe
+
+# Locally generated SGX signing material
+keys/
+*.pem
+
+# Native test builds and generated benchmark inputs
+build-native/
+tpcds/generated/
+tpcds/sql18_projected/
+tpcds/sql85_projected/
+tpcds/sql85_chain3_projected/
+tpcds/sql85_returns_star_projected/
+tpch/generated/
+tpch/sf_*/
+tpcds/tools/dsdgen
+tpcds/tools/distcomp
+tpcds/tools/mkheader
+tpcds/tools/tpcds.idx
+tpch/dbgen/dbgen
+tpch/dbgen/qgen
+
+experiments/recorded/

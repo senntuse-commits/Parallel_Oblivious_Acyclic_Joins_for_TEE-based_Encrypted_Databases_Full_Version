@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.15)
+project(jfyan_native_tests LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+find_package(OpenMP REQUIRED)
+enable_testing()
+
+file(GLOB JOIN_SOURCES CONFIGURE_DEPENDS ../implement/*.cpp)
+add_library(join_algorithms STATIC ${JOIN_SOURCES})
+target_include_directories(join_algorithms PUBLIC ../include)
+target_link_libraries(join_algorithms PUBLIC OpenMP::OpenMP_CXX)
+
+foreach(name IN ITEMS jfyan_padding paryan obliyan nonoblivious)
+  add_executable(${name}_test ${name}_test.cpp)
+  target_link_libraries(${name}_test PRIVATE join_algorithms)
+  # The supplied regression tests use assertions, including in Release builds.
+  if(MSVC)
+    target_compile_options(${name}_test PRIVATE /UNDEBUG)
+  else()
+    target_compile_options(${name}_test PRIVATE -UNDEBUG)
+  endif()
+endforeach()
+
+add_test(NAME jfyan_one_worker COMMAND jfyan_padding_test 1)
+add_test(NAME jfyan_four_workers COMMAND jfyan_padding_test 4)
+foreach(name IN ITEMS paryan obliyan nonoblivious)
+  add_test(NAME ${name} COMMAND ${name}_test)
+  set_tests_properties(${name} PROPERTIES ENVIRONMENT "OMP_NUM_THREADS=4")
+endforeach()

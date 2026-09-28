@@ -1,0 +1,26 @@
+# Local build and interpreter outputs
+__pycache__/
+*.py[cod]
+build/
+.venv/
+.DS_Store
+Thumbs.db
+
+# LaTeX intermediates
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.synctex.gz
+
+# Enclave signing keys are generated locally.
+*.pem
+
+# Local manuscript and plotting materials are not part of the public release.
+/paper/
+/code/experiments/plots/
+/code/experiments/requirements.txt
+/code-verified-sgx/
